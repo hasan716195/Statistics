@@ -1,4 +1,4 @@
-import json
+import json , math
 def data(filename,xaxis, yaxis):
     values = {'x': xaxis, 'y': yaxis}
     with open(filename, 'w') as f:
@@ -12,8 +12,8 @@ class StatsCalculator:
 
     def load_data(self):
         with open(self.file,'r') as f:
-            data01 = json.load(f)
-            self.data = data01
+            data = json.load(f)
+            self.data = data
 
     #def data(self,xaxis,yaxis):
         #emptylist = [1,2]
@@ -27,9 +27,9 @@ class StatsCalculator:
         #return values
 
     def calculate_mean(self):
-        data02 = self.data
-        x_values = data02['x'].copy()
-        y_values = data02['y'].copy()
+        data = self.data
+        x_values = data['x'].copy()
+        y_values = data['y'].copy()
         summation = len(x_values)
         empty_list = []
         active = True
@@ -49,9 +49,9 @@ class StatsCalculator:
         print(mean)
 
     def cummulative_frequency(self):
-        data03 = self.data
-        print(data03)
-        y_values = data03['y'].copy()
+        data = self.data
+        print(data)
+        y_values = data['y'].copy()
         print(y_values)
         active = True
         cumla_fre = []
@@ -64,13 +64,13 @@ class StatsCalculator:
             if len(y_values) == 1:
                 active = False
         cumla_fre.insert(0,1)
-        print(data03)
+        print(data)
         return cumla_fre
 
     def relative_frequency(self):
-        dataa = self.data
-        print(dataa)
-        y_values = dataa['y'].copy()
+        data = self.data
+        print(data)
+        y_values = data['y'].copy()
         print(y_values)
         ys_values = y_values.copy()
         summation = sum(ys_values)
@@ -84,6 +84,22 @@ class StatsCalculator:
             rela_frequency.append(x)
         print(rela_frequency)
 
+    def clsnclsint(self):
+        data = self.data
+        x_values = data['x'].copy()
+        y_values = data['y'].copy()
+        lengthx = len(y_values)
+        clses = math.ceil(1 + 3.22 * math.log10(lengthx))
+        maxi , mini = max(x_values) , min(x_values)
+        addup = maxi + mini
+        clsint = round(addup / clses)
+        active = True
+        while active:
+            for x in
+
+    def make_lists(self,n):
+        return tuple([] for _ in range(n))
+
 
 if __name__ == '__main__':
     statss = StatsCalculator('data.json')
@@ -93,3 +109,5 @@ if __name__ == '__main__':
     statss.cummulative_frequency()
     print(statss.__dict__)
     statss.relative_frequency()
+    statss.returns_nlists(3)
+    #statss.clsnclsint()
