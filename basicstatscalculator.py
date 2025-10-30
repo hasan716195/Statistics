@@ -88,14 +88,25 @@ class StatsCalculator:
         data = self.data
         x_values = data['x'].copy()
         y_values = data['y'].copy()
-        lengthx = len(y_values)
+        lengthx = sum(y_values)
         clses = math.ceil(1 + 3.22 * math.log10(lengthx))
+        print(clses)
         maxi , mini = max(x_values) , min(x_values)
         addup = maxi + mini
         clsint = round(addup / clses)
-        active = True
-        while active:
-            for x in
+        print(clsint)
+
+    def median(self):
+        data = self.data
+        x_values = data['x'].copy()
+        y_values = data['y'].copy()
+        lengthy = len(y_values) + 1
+        med = lengthy/2
+        cumfre = self.cummulative_frequency()
+        for x in cumfre:
+            if x >= med:
+                return x
+
 
     def make_lists(self,n):
         return tuple([] for _ in range(n))
@@ -106,8 +117,9 @@ if __name__ == '__main__':
     data('data.json',[2,4,6,8],[1,1,2,1])
     statss.load_data()
     statss.calculate_mean()
-    statss.cummulative_frequency()
-    print(statss.__dict__)
-    statss.relative_frequency()
-    statss.returns_nlists(3)
-    #statss.clsnclsint()
+    print(statss.cummulative_frequency())
+    #print(statss.__dict__)
+    #statss.relative_frequency()
+    #statss.returns_nlists(3)
+    #print(statss.clsnclsint())
+    print(statss.median())
