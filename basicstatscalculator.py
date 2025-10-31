@@ -5,6 +5,35 @@ def data(filename,xaxis, yaxis):
         json.dump(values, f)
     return values
 
+def sort_data(data):
+
+    dataco1 = data.copy()
+    dataco = sorted(dataco1)
+    datacoo = dataco
+    print(datacoo,datacoo[3:])
+    n = len(data)
+    sortedobs = sorted(data)
+    print(sortedobs)
+    active = True
+    freq = []
+    obs = []
+    while active:
+        x = datacoo[0]
+        nc = datacoo.count(x)
+        obs.append(x)
+        freq.append(nc)
+        datacoo = datacoo[nc:]
+        if len(datacoo) == 0:
+            active = False
+        else:
+            continue
+    return freq , obs
+
+def inputsdata(filename,data01):
+    ret_val = sort_data(data01)
+    data(filename,ret_val[1],ret_val[0])
+
+
 class StatsCalculator:
     def __init__(self,file_name):
         self.file = file_name
@@ -123,3 +152,5 @@ if __name__ == '__main__':
     #statss.returns_nlists(3)
     #print(statss.clsnclsint())
     print(statss.median())
+    sort_data([1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
+    inputsdata('data2.json',[1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
