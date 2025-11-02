@@ -138,9 +138,13 @@ class StatsCalculator:
                 active = False
             else:
                 continue
-        return list_s
-        #clses += 1
-        #clsses = dict(zip(range(1, clses), ))
+        #return list_s
+        upper_lowerboundary = []
+        for x in list_s:
+            upper_lowerboundary.append(x)
+        clses += 1
+        clsses = dict(zip(range(1, clses),upper_lowerboundary))
+        return clsses
 
     def median(self):
         data = self.data
