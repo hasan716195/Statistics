@@ -120,22 +120,42 @@ class StatsCalculator:
         lengthx = sum(y_values)
         clses = math.ceil(1 + 3.22 * math.log10(lengthx))
         print(clses)
+        list_s = self.make_lists(clses)
+        print(list_s)
         maxi , mini = max(x_values) , min(x_values)
         addup = maxi + mini
         clsint = round(addup / clses)
-        print(clsint)
+
+        starto = 0
+        active = True
+        while active:
+            class01 = list_s[starto]
+            class01.append(mini - clsint) , class01.append(mini)
+            starto += 1
+            mini += clsint
+            print(clses)
+            if starto == clses:
+                active = False
+            else:
+                continue
+        return list_s
+        #clses += 1
+        #clsses = dict(zip(range(1, clses), ))
 
     def median(self):
         data = self.data
         x_values = data['x'].copy()
         y_values = data['y'].copy()
         lengthy = len(y_values) + 1
-        med = lengthy/2
+        med = math.ceil(lengthy/2) - 1
         cumfre = self.cummulative_frequency()
-        for x in cumfre:
-            if x >= med:
-                return x
+        return cumfre[med]
 
+    def interpolation_formula(self):
+        data = self.data
+        y_values = data['y'].copy()
+        n = sum(y_values)
+        cumfre = self.cummulative_frequency()
 
     def make_lists(self,n):
         return tuple([] for _ in range(n))
@@ -150,7 +170,7 @@ if __name__ == '__main__':
     #print(statss.__dict__)
     #statss.relative_frequency()
     #statss.returns_nlists(3)
-    #print(statss.clsnclsint())
-    print(statss.median())
-    sort_data([1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
-    inputsdata('data2.json',[1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
+    print(statss.clsnclsint())
+    #print(statss.median())
+    #sort_data([1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
+    #inputsdata('data2.json',[1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
