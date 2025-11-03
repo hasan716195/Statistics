@@ -125,6 +125,7 @@ class StatsCalculator:
         maxi , mini = max(x_values) , min(x_values)
         addup = maxi + mini
         clsint = round(addup / clses)
+        copclsint = clsint
 
         starto = 0
         active = True
@@ -142,9 +143,8 @@ class StatsCalculator:
         upper_lowerboundary = []
         for x in list_s:
             upper_lowerboundary.append(x)
-        clses += 1
-        clsses = dict(zip(range(1, clses),upper_lowerboundary))
-        return clsses
+        clsses = dict(zip(x_values,upper_lowerboundary))
+        return clsses , copclsint
 
     def median(self):
         data = self.data
@@ -155,11 +155,42 @@ class StatsCalculator:
         cumfre = self.cummulative_frequency()
         return cumfre[med]
 
-    def interpolation_formula(self):
+    def interpolation_formula(self,m,k):
         data = self.data
+        x_values = data['x'].copy()
         y_values = data['y'].copy()
         n = sum(y_values)
         cumfre = self.cummulative_frequency()
+        pos = n/k
+        pos *= m
+        copypos = pos
+        math.ceil(pos)
+        emp = []
+        emp2 = []
+        for x in cumfre:
+            if x < pos:
+                emp.append(x)
+        for x in x_values:
+            if x > pos:
+                emp2.append(x)
+
+        freofcurrentclass0 = min(emp2)
+        dictfre = self.valuesnfredict()
+        freofcurrentclass = dictfre[freofcurrentclass0]
+        precumfre = max(emp)
+        cls_rtn = self.clsnclsint()
+        returned_dict = cls_rtn[0]
+        returned_list = returned_dict[4]
+        lower_boundry = returned_list[0]
+        class_width = cls_rtn[1]
+
+        return copypos , lower_boundry , class_width , freofcurrentclass , precumfre
+
+    def valuesnfredict(self):
+        data = self.data
+        x_values = data['x']
+        y_values = data['y']
+        return dict(zip(x_values,y_values))
 
     def make_lists(self,n):
         return tuple([] for _ in range(n))
@@ -178,3 +209,5 @@ if __name__ == '__main__':
     #print(statss.median())
     #sort_data([1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
     #inputsdata('data2.json',[1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
+    print(statss.interpolation_formula(1,2))
+
