@@ -40,44 +40,34 @@ class StatsCalculator:
         self.data = None
 
     def load_data(self):
+        """A method that loads the file given as a class parameter into class instance self.data"""
         with open(self.file,'r') as f:
             data = json.load(f)
             self.data = data
 
-    #def data(self,xaxis,yaxis):
-        #emptylist = [1,2]
-        #if type(xaxis) == type(emptylist):
-            #return False
-        #if type(yaxis) == type(emptylist):
-            #return False
-        #values = {'x':xaxis,'y':yaxis}
-        #with open(self.file,'w') as f:
-            #json.dump(values,f)
-        #return values
-
     def calculate_mean(self):
+        """A method that takes data from class instance self.data and calculate arithmatic mean on that data"""
         data = self.data
-        x_values = data['x'].copy()
-        y_values = data['y'].copy()
-        summation = len(x_values)
+        x_values = data['x'].copy() #copied x values of data
+        y_values = data['y'].copy() #copied frequencies of those x values
+        summation = sum(y_values) #calculate total frequencies
         empty_list = []
         active = True
-        while active:
-            x = x_values[0]
+        while active:        #this whole loop takes up an x value multiply it -
+            x = x_values[0]  # - with its frequency and then append that value into an empty list
             x *= y_values[0]
             empty_list.append(x)
             y_values = y_values[1:]
             x_values = x_values[1:]
             if len(y_values) == 0:
                 active = False
-                print(x,empty_list)
-
         frequency_x_value = sum(empty_list)
 
-        mean = frequency_x_value / summation
+        mean = frequency_x_value / summation #formula of arithmatic mean
         print(mean)
 
     def cummulative_frequency(self):
+        """A method that calculates cumulative frequency of a dataset """
         data = self.data
         print(data)
         y_values = data['y'].copy()
@@ -201,13 +191,13 @@ if __name__ == '__main__':
     data('data.json',[2,4,6,8],[1,1,2,1])
     statss.load_data()
     statss.calculate_mean()
-    print(statss.cummulative_frequency())
+    #print(statss.cummulative_frequency())
     #print(statss.__dict__)
     #statss.relative_frequency()
     #statss.returns_nlists(3)
-    print(statss.clsnclsint())
+    #print(statss.clsnclsint())
     #print(statss.median())
     #sort_data([1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
     #inputsdata('data2.json',[1000,2000,1000,1100,1100,1100,2000,1000,2000,2000])
-    print(statss.interpolation_formula(1,2))
+    #print(statss.interpolation_formula(1,2))
 
